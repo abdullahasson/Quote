@@ -30,14 +30,17 @@ class App extends React.Component {
     const {advice} = this.state
     return (
       <div className="app">
+
         <div className="card">
-          <h1 className="heading"><q>{advice}</q></h1>
+          <h1 className="heading">
+            <q>{advice}</q>
+          </h1>
 
           <button className="button" onClick={this.fetchAdvice}>
             <span>GIVE ME ADVICE!</span>
           </button>
 
-          <button className="button" onClick={this.readAdvice}>
+          <button className="read_button" onClick={this.readAdvice}>
             S
           </button>
         </div>
