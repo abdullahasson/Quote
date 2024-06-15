@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+button {
+  cursor: pointer !important;
+}
+
 .app {
   height: 100%;
   display: flex;
@@ -61,10 +65,9 @@
   color: #433c3c;
 }
 
-.read_button {
+.read_button ,
+.copy_button {
   position: absolute;
-  right: 14px;
-  top: 14px;
   border-radius: 100%;
   width: 35px;
   height: 35px;
@@ -75,6 +78,15 @@
   background-color: #d9d9d9;
 }
 
+.read_button {
+  right: 14px;
+  top: 14px;
+}
+
+.copy_button {
+  left: 14px;
+  bottom: 14px;
+}
 
 .button {
   position: relative;

@@ -1,23 +1,28 @@
 import axios from "axios";
 import React from "react";
+import Speacker from "./assets/Speacker";
+import Copy from "./assets/Copy";
+import Done from "./assets/Done";
 
 class App extends React.Component {
 
-  state = {advice : ''}
+  state = {advice : '' , copied: false , isLoading: false}
 
   componentDidMount() {
     this.fetchAdvice();
   }
 
-  fetchAdvice = () => {
-    axios.get('https://api.adviceslip.com/advice')
-      .then((response) => {
-        const advice = response.data.slip.advice
-        this.setState({ advice })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  fetchAdvice = async () => {
+    this.setState({isLoading: true})
+    try {
+      const response = await axios.get('https://api.adviceslip.com/advice');
+      const advice = response.data.slip.advice;
+      this.setState({ advice });
+    } catch (error) {
+      console.log(error);
+    }
+  
+    this.setState({ copied: false , isLoading: false });
   }
 
   readAdvice = () => {
@@ -26,23 +31,34 @@ class App extends React.Component {
     speechSynthesis.speak(utterance)
   }
 
+  copyAdvice = () => {
+    navigator.clipboard.writeText(this.state.advice);
+    this.setState({ copied : true })
+  }
+
   render() {
-    const {advice} = this.state
+    const {advice , copied , isLoading} = this.state
     return (
       <div className="app">
 
         <div className="card">
           <h1 className="heading">
-            <q>{advice}</q>
+            {isLoading ? <>Loading...</> : <q>{advice}</q>}
           </h1>
 
+          
           <button className="button" onClick={this.fetchAdvice}>
             <span>GIVE ME ADVICE!</span>
           </button>
 
-          <button className="read_button" onClick={this.readAdvice}>
-            S
+          <button style={{display : isLoading && "none"}} className="read_button" onClick={this.readAdvice}>
+            <Speacker/>
           </button>
+
+          <button style={{display : isLoading && "none"}} className="copy_button" onClick={this.copyAdvice}>
+              {copied ? <Done/> : <Copy/>}
+            </button>
+
         </div>
       </div>
     )
