@@ -65,6 +65,7 @@ button {
   color: #433c3c;
 }
 
+.save_button,
 .read_button ,
 .copy_button {
   position: absolute;
@@ -86,6 +87,11 @@ button {
 .copy_button {
   left: 14px;
   bottom: 14px;
+}
+
+.save_button {
+  left: 14px;
+  top: 14px;
 }
 
 .button {
